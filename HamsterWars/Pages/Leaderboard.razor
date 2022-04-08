@@ -20,7 +20,7 @@ else
             <tr>
                 <th>Name</th
                 <th>Age</th>
-                <th>Win%</th>
+                <th>Win rate</th>
                 <th>Likes</th>
             </tr>
         </thead>
@@ -30,7 +30,7 @@ else
                 <tr>
                     <td>@hamster.Name</td>
                     <td>@hamster.Age</td>
-                    <td>@PercentageCalculator.Calculate(@hamster.Wins, @hamster.Defeats)</td>
+                    <td>@PercentageCalculator.Calculate(@hamster.Wins, @hamster.Games)%</td>
                     <td>@hamster.Likes</td>
                 </tr>
             }

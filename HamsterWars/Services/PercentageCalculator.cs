@@ -2,9 +2,12 @@
 {
     public static class PercentageCalculator
     {
-        public static int Calculate(int wins, int defeats)
+        public static int Calculate(int wins, int games)
         {
-            return wins / defeats * 100;
+            decimal number = (decimal)wins / (decimal)games;
+            number = Math.Round(number * 100);
+
+            return (int)number;
         }
     }
 }

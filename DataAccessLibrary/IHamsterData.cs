@@ -2,9 +2,9 @@
 
 namespace DataAccessLibrary
 {
-    internal interface IHamsterData
+    public interface IHamsterData
     {
         Task<List<HamsterModel>> GetHamsters();
-        Task InsertPerson(HamsterModel hamster);
+        Task InsertHamster(HamsterModel hamster);
     }
 }

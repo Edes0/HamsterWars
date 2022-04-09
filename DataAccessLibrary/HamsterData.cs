@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary
 {
-    internal class HamsterData : IHamsterData
+    public class HamsterData : IHamsterData
     {
         private readonly ISqlDataAccess _db;
         public HamsterData(ISqlDataAccess db)
@@ -22,7 +22,7 @@ namespace DataAccessLibrary
             return _db.LoadData<HamsterModel, dynamic>(sql, new { });
         }
 
-        public Task InsertPerson(HamsterModel hamster)
+        public Task InsertHamster(HamsterModel hamster)
         {
             string sql = @"insert into dbo.Hamsters (Name, Age, ImageName, Wins, Defeats, Games, Likes)
                             values (@Name, @Age, @ImageName, @Wins, @Defeats, @Games, @Likes)";

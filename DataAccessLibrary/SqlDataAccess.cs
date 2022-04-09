@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary
 {
-    internal class SqlDataAccess : ISqlDataAccess
+    public class SqlDataAccess : ISqlDataAccess
     {
         private readonly IConfiguration _config;
         public string ConnectionStringName { get; set; } = "HamsterWars";

@@ -19,12 +19,13 @@ namespace DataAccessLibrary.Models
         public int Games { get; set; }
         public int Likes { get; set; }
 
-        //public HamsterModel()
-        //{
-        //    Wins = 0;
-        //    Defeats = 0;
-        //    Games = 0;
-        //}
+        public HamsterModel()
+        {
+            Wins = 0;
+            Defeats = 0;
+            Games = 0;
+        }
+
         //public HamsterModel(string name, int age, string imageName)
         //{
         //    Name = name;

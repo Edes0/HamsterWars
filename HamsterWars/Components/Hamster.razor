@@ -1,8 +1,29 @@
-﻿<h3>Hamster</h3>
+﻿@using DataAccessLibrary
+@using DataAccessLibrary.Models
+@using HamsterWars.Services
 
-<div><img src="" /></div>
+@inject IHamsterData _db
+
+@if (hamsters is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div>
+        @*<h2>@hamster.Name</h2>*@
+        <img class="img-thumbnail" src="/Images/@hamster.ImageName" style="width:600px;height:400px;">
+    </div>
+}
 
 @code {
+    private List<HamsterModel>? hamsters;
+    private HamsterModel? hamster;
 
-
+    protected override async Task OnInitializedAsync()
+    {
+        hamsters = await _db.GetHamsters();
+        hamster = Randomizer.GetHamster(hamsters);
+        StateHasChanged();
     }
+}

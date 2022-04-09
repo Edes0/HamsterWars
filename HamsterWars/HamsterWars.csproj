@@ -7,9 +7,56 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\Images\hamster-1.jpg" />
+    <None Include="wwwroot\Images\hamster-10.jpg" />
+    <None Include="wwwroot\Images\hamster-11.jpg" />
+    <None Include="wwwroot\Images\hamster-12.jpg" />
+    <None Include="wwwroot\Images\hamster-13.jpg" />
+    <None Include="wwwroot\Images\hamster-14.jpg" />
+    <None Include="wwwroot\Images\hamster-15.jpg" />
+    <None Include="wwwroot\Images\hamster-16.jpg" />
+    <None Include="wwwroot\Images\hamster-17.jpg" />
+    <None Include="wwwroot\Images\hamster-18.jpg" />
+    <None Include="wwwroot\Images\hamster-19.jpg" />
+    <None Include="wwwroot\Images\hamster-2.jpg" />
+    <None Include="wwwroot\Images\hamster-20.jpg" />
+    <None Include="wwwroot\Images\hamster-21.jpg" />
+    <None Include="wwwroot\Images\hamster-22.jpg" />
+    <None Include="wwwroot\Images\hamster-23.jpg" />
+    <None Include="wwwroot\Images\hamster-24.jpg" />
+    <None Include="wwwroot\Images\hamster-25.jpg" />
+    <None Include="wwwroot\Images\hamster-26.jpg" />
+    <None Include="wwwroot\Images\hamster-27.jpg" />
+    <None Include="wwwroot\Images\hamster-28.jpg" />
+    <None Include="wwwroot\Images\hamster-29.jpg" />
+    <None Include="wwwroot\Images\hamster-3.jpg" />
+    <None Include="wwwroot\Images\hamster-30.jpg" />
+    <None Include="wwwroot\Images\hamster-31.jpg" />
+    <None Include="wwwroot\Images\hamster-32.jpg" />
+    <None Include="wwwroot\Images\hamster-33.jpg" />
+    <None Include="wwwroot\Images\hamster-34.jpg" />
+    <None Include="wwwroot\Images\hamster-35.jpg" />
+    <None Include="wwwroot\Images\hamster-36.jpg" />
+    <None Include="wwwroot\Images\hamster-37.jpg" />
+    <None Include="wwwroot\Images\hamster-38.jpg" />
+    <None Include="wwwroot\Images\hamster-39.jpg" />
+    <None Include="wwwroot\Images\hamster-4.jpg" />
+    <None Include="wwwroot\Images\hamster-40.jpg" />
+    <None Include="wwwroot\Images\hamster-5.jpg" />
+    <None Include="wwwroot\Images\hamster-6.jpg" />
+    <None Include="wwwroot\Images\hamster-7.jpg" />
+    <None Include="wwwroot\Images\hamster-8.jpg" />
+    <None Include="wwwroot\Images\hamster-9.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccessLibrary\DataAccessLibrary.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,52 @@
+﻿@page "/AddHamster"
+
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+@using HamsterWars.Services
+@using HamsterWars.Models
+
+@inject IHamsterData _db
+
+<h1>UserPage</h1>
+
+<h4>Add New Hamster</h4>
+<EditForm Model="@newHamster" OnValidSubmit="@InsertHamster">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText placeholder="Name" id="Name" @bind-Value="@newHamster.Name" />
+    <InputNumber placeholder="Age" id="Age" @bind-Value="@newHamster.Age" />
+    <InputText placeholder="Favourite food" id="FavouriteFood" @bind-Value="@newHamster.FavouriteFood" />
+    <InputText placeholder="Favourite Activiy" id="FavouriteActiviy" @bind-Value="@newHamster.FavouriteActivity" />
+    <InputText placeholder="Image Name" id="ImageName" @bind-Value="@newHamster.ImageName" />
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
+
+@code {
+    private List<HamsterModel> hamsters;
+    private DisplayHamsterModel newHamster = new DisplayHamsterModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        hamsters = await _db.GetHamsters();
+    }
+
+    private async Task InsertHamster()
+    {
+        HamsterModel ham = new HamsterModel
+            {
+                Name = newHamster.Name,
+                Age = newHamster.Age,
+                FavouriteFood = newHamster.FavouriteFood,
+                FavouriteActivity = newHamster.FavouriteActivity,
+                ImageName = newHamster.ImageName
+            };
+        await _db.InsertHamster(ham);
+
+        //hamsters = await _db.GetHamsters();
+        hamsters.Add(ham);
+
+        newHamster = new DisplayHamsterModel();
+    }
+}

@@ -24,10 +24,21 @@ namespace DataAccessLibrary
 
         public Task InsertHamster(HamsterModel hamster)
         {
-            string sql = @"insert into dbo.Hamsters (Name, Age, ImageName, Wins, Defeats, Games, Likes)
-                            values (@Name, @Age, @ImageName, @Wins, @Defeats, @Games, @Likes)";
+            string sql = @"INSERT INTO dbo.Hamsters (Name, Age, ImageName, Wins, Defeats, Games, Likes)
+                            VALUES (@Name, @Age, @ImageName, @Wins, @Defeats, @Games, @Likes)";
 
             return _db.SaveData(sql, hamster);
+        }
+
+        public Task HamsterBattleStatsUpdate(HamsterModel winner, HamsterModel loser)
+        {
+            string sql = $"UPDATE Hamsters " +
+                         $"SET Wins = Wins + 1, Games = Games + 1 " +
+                         $"WHERE ID = { winner.ID }" +
+                         $"UPDATE Hamsters SET Defeats = Defeats + 1," +
+                         $"Games = Games + 1 WHERE ID = { loser.ID }";
+
+            return _db.SaveDataQuery(sql);
         }
     }
 }

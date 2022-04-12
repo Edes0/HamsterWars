@@ -14,6 +14,7 @@ namespace DataAccessLibrary
     {
         private readonly IConfiguration _config;
         public string ConnectionStringName { get; set; } = "HamsterWars";
+
         public SqlDataAccess(IConfiguration config)
         {
             _config = config;
@@ -23,22 +24,26 @@ namespace DataAccessLibrary
         {
             string ConnectionString = _config.GetConnectionString(ConnectionStringName);
 
-            using (IDbConnection connection = new SqlConnection(ConnectionString))
-            {
-                var data = await connection.QueryAsync<T>(sql, parameters);
+            using IDbConnection connection = new SqlConnection(ConnectionString);
+            var data = await connection.QueryAsync<T>(sql, parameters);
 
-                return data.ToList();
-            }
+            return data.ToList();
         }
 
         public async Task SaveData<T>(string sql, T parameters)
         {
             string ConnectionString = _config.GetConnectionString(ConnectionStringName);
 
-            using (IDbConnection connection = new SqlConnection(ConnectionString))
-            {
-                await connection.ExecuteAsync(sql, parameters);
-            }
+            using IDbConnection connection = new SqlConnection(ConnectionString);
+            await connection.ExecuteAsync(sql, parameters);
+        }
+        // Sends query only
+        public async Task SaveDataQuery(string sql)
+        {
+            string ConnectionString = _config.GetConnectionString(ConnectionStringName);
+
+            using IDbConnection connection = new SqlConnection(ConnectionString);
+            await connection.ExecuteAsync(sql);
         }
     }
 }

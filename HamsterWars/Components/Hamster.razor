@@ -3,6 +3,7 @@
 @using HamsterWars.Services
 
 @inject IHamsterData _db
+@inject ISqlDataAccess _context
 
 @if (hamsters is null)
 {
@@ -10,20 +11,31 @@
 }
 else
 {
-    <div>
-        @*<h2>@hamster.Name</h2>*@
-        <img class="img-thumbnail" src="/Images/@hamster.ImageName" style="width:600px;height:400px;">
+    <div style="float: left;">
+        @*<h2>@hamster1.Name</h2>*@
+        <input type="image" @onclick="(() => BattleStatsUpdate(hamster1, hamster2))" onfocus="location.reload()" src="/Images/@hamster1.ImageName" style="width:600px;height:400px;">
+    </div>
+    <div style="float: right;">
+        @*<h2>@hamster2.Name</h2>*@
+        <input type="image" @onclick="(() => BattleStatsUpdate(hamster2, hamster1))" onfocus="location.reload()" src="/Images/@hamster2.ImageName" style="width:600px;height:400px;">
     </div>
 }
 
 @code {
     private List<HamsterModel>? hamsters;
-    private HamsterModel? hamster;
+    private HamsterModel? hamster1;
+    private HamsterModel? hamster2;
 
     protected override async Task OnInitializedAsync()
     {
         hamsters = await _db.GetHamsters();
-        hamster = Randomizer.GetHamster(hamsters);
+        (hamster1, hamster2) = Randomizer.GetHamster(hamsters);
         StateHasChanged();
     }
-}
+    // Updates stats for both hamsters, first paramenter winner.
+    protected async Task BattleStatsUpdate(HamsterModel winner, HamsterModel loser)
+    {
+        await _db.HamsterBattleStatsUpdate(winner, loser);
+    }
+
+    }

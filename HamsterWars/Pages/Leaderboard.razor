@@ -27,8 +27,27 @@ else
         <tbody>
             @foreach (var hamster in hamsters)
             {
+
                 <tr>
-                    <td>@hamster.Name</td>
+                    @if (count < 3)
+                    {
+                        count++;
+
+                        <td>
+                            
+                            <div>
+                                <div>
+                                    @hamster.Name
+                                    <img class="img-thumbnail" src="/Images/@hamster.ImageName" style="width:300px;height:200px;">
+                                    <p class="LeaderboardTop3ExtraText">Favourite food: @hamster.FavouriteFood<br /><br> Favourite activity: @hamster.FavouriteActivity</p>
+                                </div>
+                            </div>
+                        </td>
+                    }
+                    else
+                    {
+                     <td>@hamster.Name</td>
+                    }
                     <td>@hamster.Age</td>
                     <td>@PercentageCalculator.Calculate(@hamster.Wins, @hamster.Games)%</td>
                     <td>@hamster.Likes</td>
@@ -38,13 +57,17 @@ else
     </table>
 }
 
-<h4></h4> 
+<h4></h4>
 
 @code {
     private List<HamsterModel> hamsters;
+    private int count = 0;
 
     protected override async Task OnInitializedAsync()
     {
         hamsters = await _db.GetHamsters();
+        var descendingOrder = hamsters.OrderByDescending(i => PercentageCalculator.Calculate(i.Wins, i.Games));
+        hamsters = descendingOrder.ToList();
     }
+
 }

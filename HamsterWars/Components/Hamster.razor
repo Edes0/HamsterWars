@@ -4,6 +4,8 @@
 
 @inject IHamsterData _db
 @inject ISqlDataAccess _context
+@inject IBattleData _bd
+@inject NavigationManager _NavManager
 
 @if (hamsters is null)
 {
@@ -13,29 +15,40 @@ else
 {
     <div style="float: left;">
         @*<h2>@hamster1.Name</h2>*@
-        <input type="image" @onclick="(() => BattleStatsUpdate(hamster1, hamster2))" onfocus="location.reload()" src="/Images/@hamster1.ImageName" style="width:600px;height:400px;">
+        <input type="image" @onclick="(() => BattleStatsUpdate(hamster1, hamster2))" src="/Images/@hamster1.ImageName" style="width:600px;height:400px;">
     </div>
     <div style="float: right;">
         @*<h2>@hamster2.Name</h2>*@
-        <input type="image" @onclick="(() => BattleStatsUpdate(hamster2, hamster1))" onfocus="location.reload()" src="/Images/@hamster2.ImageName" style="width:600px;height:400px;">
+        <input type="image" @onclick="(() => BattleStatsUpdate(hamster2, hamster1))" src="/Images/@hamster2.ImageName" style="width:600px;height:400px;">
     </div>
+
+    <div><Result></Result></div>
+    
 }
 
 @code {
     private List<HamsterModel>? hamsters;
     private HamsterModel? hamster1;
     private HamsterModel? hamster2;
+    BattleModel battle = new BattleModel();
 
     protected override async Task OnInitializedAsync()
     {
         hamsters = await _db.GetHamsters();
         (hamster1, hamster2) = Randomizer.GetHamster(hamsters);
+
         StateHasChanged();
     }
+
     // Updates stats for both hamsters, first paramenter winner.
     protected async Task BattleStatsUpdate(HamsterModel winner, HamsterModel loser)
     {
         await _db.HamsterBattleStatsUpdate(winner, loser);
-    }
 
+        battle.Winner_ID = winner.ID;
+        battle.Loser_ID = loser.ID;
+        await _bd.InsertBattle(battle);
+
+        _NavManager.NavigateTo(_NavManager.Uri, forceLoad: true);
+    }
     }

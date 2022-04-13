@@ -11,6 +11,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddTransient<ISqlDataAccess, SqlDataAccess>();
 builder.Services.AddTransient<IHamsterData, HamsterData>();
+builder.Services.AddTransient<IBattleData, BattleData>();
 
 var app = builder.Build();
 

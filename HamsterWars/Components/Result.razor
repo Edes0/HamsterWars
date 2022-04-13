@@ -1,5 +1,44 @@
-﻿<h3>Result</h3>
+﻿@using DataAccessLibrary
+@using DataAccessLibrary.Models
+@using HamsterWars.Services
+
+@inject IHamsterData _db
+@inject IBattleData _bd
+
+<h3>Result</h3>
+
+@if (winnerHamster is null && loserHamster is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div style="float: left;">
+        <h4>@winnerHamster.Name won</h4>
+        <img src="/Images/@winnerHamster.ImageName" style="width:300;height:200;">
+    </div>
+    <div style="float: right;">
+        <h4>@loserHamster.Name lost</h4>
+        <img src="/Images/@loserHamster.ImageName" style="width:300;height:200px;">
+    </div>
+}
 
 @code {
+    private List<HamsterModel>? hamsters;
+    private List<BattleModel>? battles;
+    private HamsterModel? winnerHamster;
+    private HamsterModel? loserHamster;
 
+
+    protected override async Task OnInitializedAsync()
+    {
+        hamsters = await _db.GetHamsters();
+        battles = await _bd.GetBattles();
+
+        var winner = hamsters.Where(h => h.ID == battles.Last().Winner_ID);
+        var loser = hamsters.Where(h => h.ID == battles.Last().Loser_ID);
+
+        winnerHamster = winner.First();
+        loserHamster = loser.First();
+    }
 }

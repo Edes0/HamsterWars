@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DataAccessLibrary.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace HamsterWars.Models
 {

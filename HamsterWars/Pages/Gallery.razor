@@ -28,6 +28,7 @@ else
 
 @code {
     private List<HamsterModel> hamsters = new List<HamsterModel>();
+
     protected override async Task OnInitializedAsync()
     {
         hamsters = await _db.GetHamsters();

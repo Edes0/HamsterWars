@@ -13,17 +13,17 @@
 }
 else
 {
-    <div style="float: left;">
-        @*<h2>@hamster1.Name</h2>*@
+    <p class="header"><h1>@hamster1.Name VS @hamster2.Name</h1></p>
+    <div class="displayed">
+    <div class="absoluteBattleLeft">
+        <h2>@hamster1.Name</h2>
         <input type="image" @onclick="(() => BattleStatsUpdate(hamster1, hamster2))" src="/Images/@hamster1.ImageName" style="width:600px;height:400px;">
     </div>
-    <div style="float: right;">
-        @*<h2>@hamster2.Name</h2>*@
+    <div class="absoluteBattleRight">
+        <h2>@hamster2.Name</h2>
         <input type="image" @onclick="(() => BattleStatsUpdate(hamster2, hamster1))" src="/Images/@hamster2.ImageName" style="width:600px;height:400px;">
     </div>
-
-    <div><Result></Result></div>
-    
+    </div>    
 }
 
 @code {

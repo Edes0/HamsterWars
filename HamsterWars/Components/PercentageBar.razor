@@ -1,5 +1,45 @@
-﻿<h3>PercentageBar</h3>
+﻿@inject IHamsterData _db
+@inject IBattleData _bd
+
+<div class="progress my-2 percentageBar">
+    <div class="progress-bar" role="progressbar" style="width: @percentage%" aria-valuemin="0" aria-valuemax="100">
+        @percentage%
+    </div>
+</div>
+
 
 @code {
+    private List<HamsterModel>? hamsters;
+    private List<BattleModel>? battles;
+    private HamsterModel? winnerHamster;
+    private HamsterModel? loserHamster;
+    private int? percentage;
 
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        hamsters = await _db.GetHamsters();
+        battles = await _bd.GetBattles();
+
+        var winner = hamsters.Where(h => h.ID == battles.Last().Winner_ID);
+        var loser = hamsters.Where(h => h.ID == battles.Last().Loser_ID);
+
+        winnerHamster = winner.First();
+        loserHamster = loser.First();
+
+        int winnerWinrate = PercentageCalculator.Calculate(winnerHamster.Wins, winnerHamster.Games);
+        int loserWinrate = PercentageCalculator.Calculate(loserHamster.Wins, loserHamster.Games);
+
+        if (winnerWinrate > loserWinrate)
+        {
+            percentage = OddsCalculator.Calculate(winnerWinrate, loserWinrate);
+        }
+        else
+        {
+            percentage = OddsCalculator.Calculate(loserWinrate, winnerWinrate);
+            percentage = 100 - percentage;
+        }
+
+    }
 }

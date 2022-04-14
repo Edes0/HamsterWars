@@ -34,19 +34,12 @@ else
                         count++;
 
                         <td>
-                            
-                            <div>
-                                <div>
-                                    @hamster.Name
-                                    <img class="img-thumbnail" src="/Images/@hamster.ImageName" style="width:300px;height:200px;">
-                                    <p class="LeaderboardTop3ExtraText">Favourite food: @hamster.FavouriteFood<br /><br> Favourite activity: @hamster.FavouriteActivity</p>
-                                </div>
-                            </div>
+                            <Card hamster="hamster" />
                         </td>
                     }
                     else
                     {
-                     <td>@hamster.Name</td>
+                        <td>@hamster.Name</td>
                     }
                     <td>@hamster.Age</td>
                     <td>@PercentageCalculator.Calculate(@hamster.Wins, @hamster.Games)%</td>

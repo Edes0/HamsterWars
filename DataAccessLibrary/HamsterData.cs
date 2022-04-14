@@ -40,5 +40,11 @@ namespace DataAccessLibrary
 
             return _db.SaveDataQuery(sql);
         }
+        public Task RemoveHamster(HamsterModel hamster)
+        {
+            string sql = $"DELETE FROM dbo.Hamsters WHERE ID = { hamster.ID }";
+
+            return _db.SaveData(sql, hamster);
+        }
     }
 }

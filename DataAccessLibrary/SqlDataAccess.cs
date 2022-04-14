@@ -37,6 +37,7 @@ namespace DataAccessLibrary
             using IDbConnection connection = new SqlConnection(ConnectionString);
             await connection.ExecuteAsync(sql, parameters);
         }
+
         // Sends query only
         public async Task SaveDataQuery(string sql)
         {

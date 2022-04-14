@@ -7,5 +7,6 @@ namespace DataAccessLibrary
         Task<List<HamsterModel>> GetHamsters();
         Task InsertHamster(HamsterModel hamster);
         Task HamsterBattleStatsUpdate(HamsterModel winner, HamsterModel loser);
+        public Task RemoveHamster(HamsterModel hamster);
     }
 }

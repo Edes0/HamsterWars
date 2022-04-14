@@ -5,7 +5,7 @@
 @inject IHamsterData _db
 @inject ISqlDataAccess _context
 @inject IBattleData _bd
-@inject NavigationManager _NavManager
+@inject NavigationManager _nav
 
 @if (hamsters is null)
 {
@@ -49,6 +49,6 @@ else
         battle.Loser_ID = loser.ID;
         await _bd.InsertBattle(battle);
 
-        _NavManager.NavigateTo(_NavManager.Uri, forceLoad: true);
+        _nav.NavigateTo(_nav.Uri, forceLoad: true);
     }
     }

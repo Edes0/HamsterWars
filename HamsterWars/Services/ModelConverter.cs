@@ -3,9 +3,9 @@ using HamsterWars.Models;
 
 namespace HamsterWars.Services
 {
-    public static class HamsterConverter
+    public static class ModelConverter
     {
-        public static DisplayHamsterModel ConvertToDisplayHamsterModel(HamsterModel hamsterModel)
+        public static DisplayHamsterModel ToDisplayHamsterModel(HamsterModel hamsterModel)
         {
             return new DisplayHamsterModel
             {
@@ -18,11 +18,9 @@ namespace HamsterWars.Services
                 Defeats = hamsterModel.Defeats,
                 Games = hamsterModel.Games,
                 Likes = hamsterModel.Likes
-
-
             };
         }
-        public static HamsterModel ConvertToHamsterModel(DisplayHamsterModel displayHamsterModel)
+        public static HamsterModel ToHamsterModel(DisplayHamsterModel displayHamsterModel)
         {
             return new HamsterModel
             {
@@ -37,27 +35,47 @@ namespace HamsterWars.Services
                 Likes = displayHamsterModel.Likes
             };
         }
-        public static List<DisplayHamsterModel> ConvertToDisplayHamsterModelList(List<HamsterModel> hamsterModelList)
+        public static List<DisplayHamsterModel> ToDisplayHamsterModelList(List<HamsterModel> hamsterModelList)
         {
-            List<DisplayHamsterModel> hamsters = new List<DisplayHamsterModel>();
+            List<DisplayHamsterModel> hamsters = new();
 
             foreach (var hamster in hamsterModelList)
             {
-                DisplayHamsterModel displayHamster = ConvertToDisplayHamsterModel(hamster);
+                DisplayHamsterModel displayHamster = ToDisplayHamsterModel(hamster);
                 hamsters.Add(displayHamster);
             }
             return hamsters;
         }
-        public static List<HamsterModel> ConvertToHamsterModelList(List<DisplayHamsterModel> displayHamsterModelList)
+        public static List<HamsterModel> ToHamsterModelList(List<DisplayHamsterModel> displayHamsterModelList)
         {
-            List<HamsterModel> hamsters = new List<HamsterModel>();
+            List<HamsterModel> hamsters = new();
 
             foreach (var hamster in displayHamsterModelList)
             {
-                HamsterModel modelHamster = ConvertToHamsterModel(hamster);
+                HamsterModel modelHamster = ToHamsterModel(hamster);
                 hamsters.Add(modelHamster);
             }
             return hamsters;
+        }
+        public static DisplayBattleModel ToDisplayBattleModel(BattleModel battleModel)
+        {
+            return new DisplayBattleModel
+            {
+                Winner_ID = battleModel.Winner_ID,
+                Loser_ID = battleModel.Loser_ID,
+                Date = battleModel.Date
+            };
+        }
+        public static List<DisplayBattleModel> ToDisplayBattleModelList(List<BattleModel> battleModel)
+        {
+            List<DisplayBattleModel> battles = new();
+
+            foreach (var battle in battleModel)
+            {
+                DisplayBattleModel modelHamster = ToDisplayBattleModel(battle);
+                battles.Add(modelHamster);
+            }
+            return battles;
         }
     }
 }

@@ -1,11 +1,70 @@
 ﻿@page "/History"
 
+@inject IHamsterData _db
+@inject ISqlDataAccess _context
+@inject IBattleData _bd
+
+
 <h3>History</h3>
 
+@if (displayBattles is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Winner</th>
+                <th>Loser</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var battle in displayBattles)
+            {
+                <tr>
+                    <td>@battle.Date</td>
+                    <td>@GetWinner(battle.Winner_ID)</td>
+                    <td>@GetLoser(battle.Loser_ID)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-
-
+}
 
 @code {
+    private DisplayHamsterModel? displayHamster;
+    private HamsterModel? hamsterModel;
+    private List<HamsterModel>? hamsters;
+    private List<DisplayHamsterModel>? displayHamsters;
+    private List<BattleModel>? battles;
+    private List<DisplayBattleModel>? displayBattles;
 
+
+    protected override async Task OnInitializedAsync()
+    {
+        hamsters = await _db.GetHamsters();
+
+        battles = await _bd.GetBattles();
+        var displayBattles = ModelConverter.ToDisplayBattleModelList(battles).OrderByDescending(s => s.Date);
+
+        StateHasChanged();
+    }
+
+    private DisplayHamsterModel GetWinner(int winnerID)
+    {
+        hamsterModel = hamsters.Where(s => s.ID == winnerID).Single();
+
+        return ModelConverter.ToDisplayHamsterModel(hamsterModel);
+    }
+
+    private DisplayHamsterModel GetLoser(int LoserID)
+    {
+        hamsterModel = hamsters.Where(s => s.ID == LoserID).Single();
+
+        return ModelConverter.ToDisplayHamsterModel(hamsterModel);
+    }
 }

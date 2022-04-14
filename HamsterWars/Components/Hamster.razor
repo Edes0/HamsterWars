@@ -13,29 +13,34 @@
 }
 else
 {
-    <p class="header"><h1>@hamster1.Name VS @hamster2.Name</h1></p>
+    <p class="header"><h1>@displayHamster1.Name VS @displayHamster2.Name</h1></p>
     <div class="displayed">
-    <div class="absoluteBattleLeft">
-        <h2>@hamster1.Name</h2>
-        <input type="image" @onclick="(() => BattleStatsUpdate(hamster1, hamster2))" src="/Images/@hamster1.ImageName" style="width:600px;height:400px;">
+        <div class="absoluteBattleLeft">
+            <h2>@displayHamster1.Name</h2>
+            <input type="image" @onclick="(() => BattleStatsUpdate(hamster1, hamster2))" src="/Images/@displayHamster1.ImageName" style="width:600px;height:400px;">
+        </div>
+        <div class="absoluteBattleRight">
+            <h2>@displayHamster2.Name</h2>
+            <input type="image" @onclick="(() => BattleStatsUpdate(hamster2, hamster1))" src="/Images/@displayHamster2.ImageName" style="width:600px;height:400px;">
+        </div>
     </div>
-    <div class="absoluteBattleRight">
-        <h2>@hamster2.Name</h2>
-        <input type="image" @onclick="(() => BattleStatsUpdate(hamster2, hamster1))" src="/Images/@hamster2.ImageName" style="width:600px;height:400px;">
-    </div>
-    </div>    
 }
 
 @code {
     private List<HamsterModel>? hamsters;
     private HamsterModel? hamster1;
     private HamsterModel? hamster2;
+    private DisplayHamsterModel? displayHamster1;
+    private DisplayHamsterModel? displayHamster2;
     BattleModel battle = new BattleModel();
 
     protected override async Task OnInitializedAsync()
     {
         hamsters = await _db.GetHamsters();
         (hamster1, hamster2) = Randomizer.GetHamster(hamsters);
+
+        displayHamster1 = ModelConverter.ToDisplayHamsterModel(hamster1);
+        displayHamster2 = ModelConverter.ToDisplayHamsterModel(hamster2);
 
         StateHasChanged();
     }
@@ -47,6 +52,7 @@ else
 
         battle.Winner_ID = winner.ID;
         battle.Loser_ID = loser.ID;
+
         await _bd.InsertBattle(battle);
 
         _nav.NavigateTo(_nav.Uri, forceLoad: true);

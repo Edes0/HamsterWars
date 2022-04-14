@@ -31,11 +31,10 @@
 
     private async Task InsertHamster()
     {
-        HamsterModel ham = HamsterConverter.ConvertToHamsterModel(newHamster);
+        await _db.InsertHamster(ModelConverter.ToHamsterModel(newHamster));
 
-        await _db.InsertHamster(ham);
-
-        hamsters.Add(ham);
+        //hamsters = await _db.GetHamsters();
+        hamsters.Add(ModelConverter.ToHamsterModel(newHamster));
 
         newHamster = new DisplayHamsterModel();
 

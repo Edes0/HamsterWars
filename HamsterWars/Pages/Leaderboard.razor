@@ -27,20 +27,8 @@ else
         <tbody>
             @foreach (var hamster in hamsters)
             {
-
                 <tr>
-                    @if (count < 3)
-                    {
-                        count++;
-
-                        <td>
-                            <Card hamster="hamster" />
-                        </td>
-                    }
-                    else
-                    {
-                        <td>@hamster.Name</td>
-                    }
+                    <td>@hamster.Name</td>
                     <td>@hamster.Age</td>
                     <td>@PercentageCalculator.Calculate(@hamster.Wins, @hamster.Games)%</td>
                     <td>@hamster.Likes</td>
@@ -51,14 +39,17 @@ else
 }
 
 @code {
-    private List<HamsterModel> hamsters;
+    private List<HamsterModel>? hamsters;
+    private List<DisplayHamsterModel>? displayHamsters;
     private int count = 0;
 
     protected override async Task OnInitializedAsync()
     {
         hamsters = await _db.GetHamsters();
+
         var descendingOrder = hamsters.OrderByDescending(i => PercentageCalculator.Calculate(i.Wins, i.Games));
         hamsters = descendingOrder.ToList();
+
     }
 
 }

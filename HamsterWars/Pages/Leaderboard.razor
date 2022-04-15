@@ -28,7 +28,7 @@ else
             @foreach (var hamster in hamsters)
             {
                 <tr>
-                    <td>@hamster.Name</td>
+                    <td><a href="/HamsterWins/@hamster.ID">@hamster.Name</a></td>
                     <td>@hamster.Age</td>
                     <td>@PercentageCalculator.Calculate(@hamster.Wins, @hamster.Games)%</td>
                     <td>@hamster.Likes</td>

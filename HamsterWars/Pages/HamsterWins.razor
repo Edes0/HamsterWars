@@ -1,11 +1,10 @@
-﻿@page "/History"
+﻿@page "/HamsterWins/{Id:int}"
 
-@inject IHamsterData _db
-@inject ISqlDataAccess _context
 @inject IBattleData _bd
+@inject IHamsterData _db
 
 
-<h3>History</h3>
+<h3>Battle History</h3>
 
 @if (displayBattles is null)
 {
@@ -13,6 +12,17 @@
 }
 else
 {
+     <img src="/Images/@displayHamster.ImageName" alt="Avatar" style="width:600px;height:400px;">
+      <h1>Name: @displayHamster.Name</h1>
+      <p>Favourite Food: @displayHamster.FavouriteFood</p>
+      <p>Favourite Activity: @displayHamster.FavouriteActivity</p>
+      <p>Wins: @displayHamster.Wins</p>
+      <p>Defeats: @displayHamster.Defeats</p>
+      <p>Games: @displayHamster.Games</p>
+      <hr />
+
+
+      <h3>Won battles: </h3>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -26,7 +36,7 @@ else
             {
                 <tr>
                     <td>@battle.Date</td>
-                    <td>@GetWinner(battle.Winner_ID).Name</td>
+                    <td>@displayHamster.Name</td>
                     <td>@GetLoser(battle.Loser_ID).Name</td>
                 </tr>
             }
@@ -36,28 +46,29 @@ else
 }
 
 @code {
-    private DisplayHamsterModel? displayHamster;
+    [Parameter]
+    public int Id { get; set; }
     private HamsterModel? hamsterModel;
-    private List<HamsterModel>? hamsters;
-    private List<DisplayHamsterModel>? displayHamsters;
+    private DisplayHamsterModel? displayHamster;
     private List<BattleModel>? battles;
     private List<DisplayBattleModel>? displayBattles;
+    private List<HamsterModel>? hamsters;
 
 
     protected override async Task OnInitializedAsync()
     {
+        battles = await _bd.GetBattles();
         hamsters = await _db.GetHamsters();
 
-        battles = await _bd.GetBattles();
-
-        displayBattles = ModelConverter.ToDisplayBattleModelList(battles).OrderByDescending(s => s.Date).ToList();
-
+        displayBattles = ModelConverter.ToDisplayBattleModelList(battles).OrderByDescending(s => s.Date).Where(s => s.Winner_ID == Id).ToList();
+        displayHamster = GetWinner(Id);
+           
         StateHasChanged();
     }
 
-    private DisplayHamsterModel GetWinner(int winnerID)
+        private DisplayHamsterModel GetWinner(int Id)
     {
-        hamsterModel = hamsters.Where(s => s.ID == winnerID).Single();
+        hamsterModel = hamsters.Where(s => s.ID == Id).Single();
 
         return ModelConverter.ToDisplayHamsterModel(hamsterModel);
     }
@@ -68,4 +79,6 @@ else
 
         return ModelConverter.ToDisplayHamsterModel(hamsterModel);
     }
+
+
 }

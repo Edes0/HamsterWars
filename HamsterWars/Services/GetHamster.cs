@@ -1,4 +1,4 @@
-﻿using DataAccessLibrary.Models;
+﻿using Domain.Models;
 using HamsterWars.Models;
 
 namespace HamsterWars.Services
@@ -13,7 +13,7 @@ namespace HamsterWars.Services
 
             return new DisplayHamsterModel
             {
-                Name = "Unknown"
+                Name = "DELETED"
             };
         }
     }

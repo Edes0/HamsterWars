@@ -1,6 +1,6 @@
-﻿using DataAccessLibrary.Models;
+﻿using Domain.Models;
 
-namespace DataAccessLibrary
+namespace DataAccessLibrary.Data
 {
     public interface IHamsterData
     {

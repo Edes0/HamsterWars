@@ -1,6 +1,4 @@
-using DataAccessLibrary;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using DataAccessLibrary.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,4 +1,4 @@
-﻿using DataAccessLibrary.Models;
+﻿using Domain.Models;
 using HamsterWars.Models;
 
 namespace HamsterWars.Services

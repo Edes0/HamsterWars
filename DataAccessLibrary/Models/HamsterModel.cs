@@ -18,6 +18,7 @@ namespace DataAccessLibrary.Models
         public int Defeats { get; set; }
         public int Games { get; set; }
         public int Likes { get; set; }
+        public string Status { get; set; }
 
         public HamsterModel()
         {

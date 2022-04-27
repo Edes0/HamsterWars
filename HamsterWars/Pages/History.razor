@@ -28,8 +28,8 @@ else
             {
                 <tr>
                     <td>@battle.Date</td>
-                    <td>@GetWinner(battle.Winner_ID).Name</td>
-                    <td>@GetLoser(battle.Loser_ID).Name</td>
+                    <td>@GetHamster.Get(battle.Winner_ID, hamsters).Name</td>
+                    <td>@GetHamster.Get(battle.Loser_ID, hamsters).Name</td>
                     <td><button type="button" @onclick="(() => RemoveBattle(ModelConverter.ToBattleModel(battle)))" class="btn btn-danger">REMOVE</button></td>
                 </tr>
             }
@@ -40,7 +40,6 @@ else
 
 @code {
     private DisplayHamsterModel? displayHamster;
-    private HamsterModel? hamsterModel;
     private List<HamsterModel>? hamsters;
     private List<DisplayHamsterModel>? displayHamsters;
     private List<BattleModel>? battles;
@@ -57,20 +56,6 @@ else
 
         StateHasChanged();
     }
-
-    private DisplayHamsterModel GetWinner(int winnerID)
-    {
-        hamsterModel = hamsters.Where(s => s.ID == winnerID).Single();
-
-        return ModelConverter.ToDisplayHamsterModel(hamsterModel);
-    }
-
-    private DisplayHamsterModel GetLoser(int LoserID)
-    {
-        hamsterModel = hamsters.Where(s => s.ID == LoserID).Single();
-
-        return ModelConverter.ToDisplayHamsterModel(hamsterModel);
-    }   
 
     private async Task RemoveBattle(BattleModel battleModel)
     {

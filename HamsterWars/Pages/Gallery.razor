@@ -30,5 +30,12 @@ else
     protected override async Task OnInitializedAsync()
     {
         hamsters = await _db.GetHamsters();
+
+        var activeHamsters = from hamster in hamsters
+                             where hamster.Status == "Active"
+                             select hamster;
+
+        hamsters = activeHamsters.ToList();
+
     }
     }

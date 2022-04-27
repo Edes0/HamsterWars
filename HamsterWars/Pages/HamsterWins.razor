@@ -37,7 +37,7 @@ else
                 <tr>
                     <td>@battle.Date</td>
                     <td>@displayHamster.Name</td>
-                    <td>@GetLoser(battle.Loser_ID).Name</td>
+                    <td>@GetHamster.Get(battle.Loser_ID, hamsters).Name</td>
                 </tr>
             }
         </tbody>
@@ -61,40 +61,8 @@ else
         hamsters = await _db.GetHamsters();
 
         displayBattles = ModelConverter.ToDisplayBattleModelList(battles).OrderByDescending(s => s.Date).Where(s => s.Winner_ID == Id).ToList();
-        displayHamster = GetWinner(Id);
+        displayHamster = GetHamster.Get(Id, hamsters);
 
         StateHasChanged();
     }
-
-    private DisplayHamsterModel GetWinner(int Id)
-    {
-        if (hamsters.Any(s => s.ID == Id))
-        {
-            hamsterModel = hamsters.Where(s => s.ID == Id).Single();
-            return ModelConverter.ToDisplayHamsterModel(hamsterModel);
-        }
-        else
-        {
-            return new DisplayHamsterModel
-                {
-                    Name = "Unknown"
-                };
-        }
     }
-
-    private DisplayHamsterModel GetLoser(int LoserID)
-    {
-        if (hamsters.Any(s => s.ID == Id))
-        {
-            hamsterModel = hamsters.Where(s => s.ID == LoserID).Single();
-            return ModelConverter.ToDisplayHamsterModel(hamsterModel);
-        }
-        else
-        {
-            return new DisplayHamsterModel
-                {
-                    Name = "Unknown"
-                };
-        }
-    }
-}

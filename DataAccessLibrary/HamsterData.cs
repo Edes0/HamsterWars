@@ -17,7 +17,7 @@ namespace DataAccessLibrary
 
         public Task<List<HamsterModel>> GetHamsters()
         {
-            string sql = "select * from dbo.Hamsters WHERE Status = 'Active'";
+            string sql = "select * from dbo.Hamsters";
 
             return _db.LoadData<HamsterModel, dynamic>(sql, new { });
         }

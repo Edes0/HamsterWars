@@ -29,6 +29,7 @@ namespace DataAccessLibrary
 
             return _db.SaveData(sql, battle);
         }
+
         public Task RemoveBattle(BattleModel battleModel)
         {
             string sql = $"DELETE FROM dbo.Battles WHERE ID = { battleModel.ID }";

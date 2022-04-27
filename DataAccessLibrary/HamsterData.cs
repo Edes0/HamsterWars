@@ -17,7 +17,7 @@ namespace DataAccessLibrary
 
         public Task<List<HamsterModel>> GetHamsters()
         {
-            string sql = "select * from dbo.Hamsters";
+            string sql = "select * from dbo.Hamsters WHERE Status = 'Active'";
 
             return _db.LoadData<HamsterModel, dynamic>(sql, new { });
         }
@@ -26,6 +26,12 @@ namespace DataAccessLibrary
         {
             string sql = @"INSERT INTO dbo.Hamsters (Name, Age, ImageName, Wins, Defeats, Games, Likes)
                             VALUES (@Name, @Age, @ImageName, @Wins, @Defeats, @Games, @Likes)";
+
+            return _db.SaveData(sql, hamster);
+        }
+        public Task RemoveHamster(HamsterModel hamster)
+        {
+            string sql = $"DELETE FROM dbo.Hamsters WHERE ID = { hamster.ID }";
 
             return _db.SaveData(sql, hamster);
         }
@@ -39,12 +45,6 @@ namespace DataAccessLibrary
                          $"Games = Games + 1 WHERE ID = { loser.ID }";
 
             return _db.SaveDataQuery(sql);
-        }
-        public Task RemoveHamster(HamsterModel hamster)
-        {
-            string sql = $"DELETE FROM dbo.Hamsters WHERE ID = { hamster.ID }";
-
-            return _db.SaveData(sql, hamster);
         }
     }
 }

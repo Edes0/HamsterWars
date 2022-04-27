@@ -7,6 +7,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HamsterWars", "HamsterWars\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLibrary", "DataAccessLibrary\DataAccessLibrary.csproj", "{9C7BB970-D285-40B3-8A1B-2185C803FC66}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{E9D8F9AB-3754-4990-B1E2-44D96E5955DC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{CABF71C3-C011-46ED-8C79-B0C7FC7DF5EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{C93F2CCD-3C6C-49CA-B195-0A72D0C868F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{B0BCD829-2085-4282-BC64-889B45B9EF3F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +29,18 @@ Global
 		{9C7BB970-D285-40B3-8A1B-2185C803FC66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C7BB970-D285-40B3-8A1B-2185C803FC66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C7BB970-D285-40B3-8A1B-2185C803FC66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0BCD829-2085-4282-BC64-889B45B9EF3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0BCD829-2085-4282-BC64-889B45B9EF3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0BCD829-2085-4282-BC64-889B45B9EF3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0BCD829-2085-4282-BC64-889B45B9EF3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1F4C160B-9883-4209-BB6D-3CC9558A97F0} = {C93F2CCD-3C6C-49CA-B195-0A72D0C868F8}
+		{9C7BB970-D285-40B3-8A1B-2185C803FC66} = {E9D8F9AB-3754-4990-B1E2-44D96E5955DC}
+		{B0BCD829-2085-4282-BC64-889B45B9EF3F} = {CABF71C3-C011-46ED-8C79-B0C7FC7DF5EE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C293B807-C87F-47D8-B7B4-F251292D51E9}

@@ -12,17 +12,17 @@
 }
 else
 {
-     <img src="/Images/@displayHamster.ImageName" alt="Avatar" style="width:600px;height:400px;">
-      <h1>Name: @displayHamster.Name</h1>
-      <p>Favourite Food: @displayHamster.FavouriteFood</p>
-      <p>Favourite Activity: @displayHamster.FavouriteActivity</p>
-      <p>Wins: @displayHamster.Wins</p>
-      <p>Defeats: @displayHamster.Defeats</p>
-      <p>Games: @displayHamster.Games</p>
-      <hr />
+    <img src="/Images/@displayHamster.ImageName" alt="Avatar" style="width:600px;height:400px;">
+    <h1>Name: @displayHamster.Name</h1>
+    <p>Favourite Food: @displayHamster.FavouriteFood</p>
+    <p>Favourite Activity: @displayHamster.FavouriteActivity</p>
+    <p>Wins: @displayHamster.Wins</p>
+    <p>Defeats: @displayHamster.Defeats</p>
+    <p>Games: @displayHamster.Games</p>
+    <hr />
 
 
-      <h3>Won battles: </h3>
+    <h3>Won battles: </h3>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -62,23 +62,39 @@ else
 
         displayBattles = ModelConverter.ToDisplayBattleModelList(battles).OrderByDescending(s => s.Date).Where(s => s.Winner_ID == Id).ToList();
         displayHamster = GetWinner(Id);
-           
+
         StateHasChanged();
     }
 
-        private DisplayHamsterModel GetWinner(int Id)
+    private DisplayHamsterModel GetWinner(int Id)
     {
-        hamsterModel = hamsters.Where(s => s.ID == Id).Single();
-
-        return ModelConverter.ToDisplayHamsterModel(hamsterModel);
+        if (hamsters.Any(s => s.ID == Id))
+        {
+            hamsterModel = hamsters.Where(s => s.ID == Id).Single();
+            return ModelConverter.ToDisplayHamsterModel(hamsterModel);
+        }
+        else
+        {
+            return new DisplayHamsterModel
+                {
+                    Name = "Unknown"
+                };
+        }
     }
 
     private DisplayHamsterModel GetLoser(int LoserID)
     {
-        hamsterModel = hamsters.Where(s => s.ID == LoserID).Single();
-
-        return ModelConverter.ToDisplayHamsterModel(hamsterModel);
+        if (hamsters.Any(s => s.ID == Id))
+        {
+            hamsterModel = hamsters.Where(s => s.ID == LoserID).Single();
+            return ModelConverter.ToDisplayHamsterModel(hamsterModel);
+        }
+        else
+        {
+            return new DisplayHamsterModel
+                {
+                    Name = "Unknown"
+                };
+        }
     }
-
-
 }

@@ -38,7 +38,6 @@ namespace DataAccessLibrary
             await connection.ExecuteAsync(sql, parameters);
         }
 
-        // Sends query only
         public async Task SaveDataQuery(string sql)
         {
             string ConnectionString = _config.GetConnectionString(ConnectionStringName);

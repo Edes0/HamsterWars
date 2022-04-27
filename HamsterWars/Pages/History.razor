@@ -3,6 +3,7 @@
 @inject IHamsterData _db
 @inject ISqlDataAccess _context
 @inject IBattleData _bd
+@inject NavigationManager _nav
 
 
 <h3>History</h3>
@@ -19,6 +20,7 @@ else
                 <th>Time</th>
                 <th>Winner</th>
                 <th>Loser</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -28,6 +30,7 @@ else
                     <td>@battle.Date</td>
                     <td>@GetWinner(battle.Winner_ID).Name</td>
                     <td>@GetLoser(battle.Loser_ID).Name</td>
+                    <td><button type="button" @onclick="(() => RemoveBattle(ModelConverter.ToBattleModel(battle)))" class="btn btn-danger">REMOVE</button></td>
                 </tr>
             }
         </tbody>
@@ -67,5 +70,12 @@ else
         hamsterModel = hamsters.Where(s => s.ID == LoserID).Single();
 
         return ModelConverter.ToDisplayHamsterModel(hamsterModel);
+    }   
+
+    private async Task RemoveBattle(BattleModel battleModel)
+    {
+        await _bd.RemoveBattle(battleModel);
+
+         _nav.NavigateTo(_nav.Uri, forceLoad: true);
     }
 }

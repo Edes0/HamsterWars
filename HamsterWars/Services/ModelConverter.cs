@@ -61,6 +61,7 @@ namespace HamsterWars.Services
         {
             return new DisplayBattleModel
             {
+                ID = battleModel.ID,
                 Winner_ID = battleModel.Winner_ID,
                 Loser_ID = battleModel.Loser_ID,
                 Date = battleModel.Date
@@ -76,6 +77,16 @@ namespace HamsterWars.Services
                 battles.Add(modelHamster);
             }
             return battles;
+        }
+        public static BattleModel ToBattleModel(DisplayBattleModel displayBattleModel)
+        {
+            return new BattleModel
+            {
+                ID = displayBattleModel.ID,
+                Winner_ID = displayBattleModel.Winner_ID,
+                Loser_ID = displayBattleModel.Loser_ID,
+                Date = displayBattleModel.Date
+            };
         }
     }
 }

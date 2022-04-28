@@ -11,22 +11,17 @@
 @code {
     private List<HamsterModel>? hamsters;
     private List<BattleModel>? battles;
-    private HamsterModel? winnerHamster;
-    private HamsterModel? loserHamster;
+    private DisplayHamsterModel? winnerHamster;
+    private DisplayHamsterModel? loserHamster;
     private int? percentage;
-
-
 
     protected override async Task OnInitializedAsync()
     {
         hamsters = await _db.GetHamsters();
         battles = await _bd.GetBattles();
 
-        var winner = hamsters.Where(h => h.ID == battles.Last().Winner_ID);
-        var loser = hamsters.Where(h => h.ID == battles.Last().Loser_ID);
-
-        winnerHamster = winner.First();
-        loserHamster = loser.First();
+        winnerHamster = ModelConverter.ToDisplayHamsterModel(hamsters.Where(h => h.ID == battles.Last().Winner_ID).Single());
+        loserHamster = ModelConverter.ToDisplayHamsterModel(hamsters.Where(h => h.ID == battles.Last().Loser_ID).Single());
 
         int winnerWinrate = PercentageCalculator.Calculate(winnerHamster.Wins, winnerHamster.Games);
         int loserWinrate = PercentageCalculator.Calculate(loserHamster.Wins, loserHamster.Games);

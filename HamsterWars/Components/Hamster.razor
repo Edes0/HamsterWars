@@ -1,4 +1,6 @@
-﻿@inject IHamsterData _db
+﻿@using Application.ProjectAggregate.Events
+
+@inject IHamsterData _db
 @inject ISqlDataAccess _context
 @inject IBattleData _bd
 @inject NavigationManager _nav
@@ -44,11 +46,11 @@ else
     // Updates stats for both hamsters, first paramenter winner.
     protected async Task BattleStatsUpdate(HamsterModel winner, HamsterModel loser)
     {
+        BattleEvent.StatsUpdate(winner, loser);
         await _db.HamsterBattleStatsUpdate(winner, loser);
 
         battle.Winner_ID = winner.ID;
         battle.Loser_ID = loser.ID;
-
         await _bd.InsertBattle(battle);
 
         _nav.NavigateTo(_nav.Uri, forceLoad: true);

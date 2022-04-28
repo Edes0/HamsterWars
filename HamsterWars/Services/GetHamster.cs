@@ -7,9 +7,9 @@ namespace HamsterWars.Services
     {
         public static DisplayHamsterModel Get(int Id, List<HamsterModel> hamsters)
         {
-            HamsterModel hamsterModel = hamsters.Where(s => s.ID == Id).Single();
+            HamsterModel hamsterModel = hamsters.FirstOrDefault(s => s.ID == Id);
 
-            if (hamsterModel.Status == "Active") return ModelConverter.ToDisplayHamsterModel(hamsterModel);
+            if (hamsterModel != null) return ModelConverter.ToDisplayHamsterModel(hamsterModel);
 
             return new DisplayHamsterModel
             {

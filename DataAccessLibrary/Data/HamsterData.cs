@@ -12,15 +12,15 @@ namespace DataAccessLibrary.Data
 
         public Task<List<HamsterModel>> GetHamsters()
         {
-            string sql = "select * from dbo.Hamsters";
+            string sql = "select * from dbo.Hamsters WHERE Status = 'Active'";
 
             return _db.LoadData<HamsterModel, dynamic>(sql, new { });
         }
 
         public Task InsertHamster(HamsterModel hamster)
         {
-            string sql = @"INSERT INTO dbo.Hamsters (Name, Age, ImageName, Wins, Defeats, Games, Likes)
-                            VALUES (@Name, @Age, @ImageName, @Wins, @Defeats, @Games, @Likes)";
+            string sql = @"INSERT INTO dbo.Hamsters (Name, Age, ImageName, Wins, Defeats, Games, Likes, Status)
+                            VALUES (@Name, @Age, @ImageName, @Wins, @Defeats, @Games, @Likes, @Status)";
 
             return _db.SaveData(sql, hamster);
         }
@@ -34,10 +34,11 @@ namespace DataAccessLibrary.Data
         public Task HamsterBattleStatsUpdate(HamsterModel winner, HamsterModel loser)
         {
             string sql = $"UPDATE Hamsters " +
-                         $"SET Wins = Wins + 1, Games = Games + 1 " +
+                         $"SET Wins = { winner.Wins }, Games = { winner.Games } " +
                          $"WHERE ID = { winner.ID }" +
-                         $"UPDATE Hamsters SET Defeats = Defeats + 1," +
-                         $"Games = Games + 1 WHERE ID = { loser.ID }";
+                         $"UPDATE Hamsters " +
+                         $"SET Defeats = { loser.Defeats }, Games = { loser.Games } " +
+                         $"WHERE ID = { loser.ID }";
 
             return _db.SaveDataQuery(sql);
         }

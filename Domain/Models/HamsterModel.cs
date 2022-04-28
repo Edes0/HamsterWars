@@ -19,6 +19,7 @@
             Wins = 0;
             Defeats = 0;
             Games = 0;
+            Status = "Active";
         }
     }
 }

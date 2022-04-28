@@ -1,7 +1,7 @@
 ﻿@inject IHamsterData _db
 @inject IBattleData _bd
 
-@if (winnerHamster is null && loserHamster is null)
+@if (displayWinnerHamster is null && displayLoserHamster is null)
 {
     <p><em>Loading...</em></p>
 }
@@ -9,12 +9,12 @@ else
 {
     <div class="displayed">
         <div class="absoluteResultLeft">
-        <h5>@winnerHamster.Name won </h5>
-        <img src="/Images/@winnerHamster.ImageName" align="bottom" style="width:300px;height:200px;">
+        <h5>@displayWinnerHamster.Name won </h5>
+        <img src="/Images/@displayWinnerHamster.ImageName" align="bottom" style="width:300px;height:200px;">
         </div>
         <div class="absoluteResultRight">
-        <h5>@loserHamster.Name lost</h5>
-        <img src="/Images/@loserHamster.ImageName" align="bottom" style="width:300px;height:200px;">
+        <h5>@displayLoserHamster.Name lost</h5>
+        <img src="/Images/@displayLoserHamster.ImageName" align="bottom" style="width:300px;height:200px;">
         </div>
     </div>
 }
@@ -22,8 +22,8 @@ else
 @code {
     private List<HamsterModel>? hamsters;
     private List<BattleModel>? battles;
-    private HamsterModel? winnerHamster;
-    private HamsterModel? loserHamster;
+    private DisplayHamsterModel? displayWinnerHamster;
+    private DisplayHamsterModel? displayLoserHamster;
 
 
     protected override async Task OnInitializedAsync()
@@ -31,10 +31,7 @@ else
         hamsters = await _db.GetHamsters();
         battles = await _bd.GetBattles();
 
-        var winner = hamsters.Where(h => h.ID == battles.Last().Winner_ID);
-        var loser = hamsters.Where(h => h.ID == battles.Last().Loser_ID);
-
-        winnerHamster = winner.First();
-        loserHamster = loser.First();
+        displayWinnerHamster = ModelConverter.ToDisplayHamsterModel(hamsters.Where(h => h.ID == battles.Last().Winner_ID).Single());
+        displayLoserHamster = ModelConverter.ToDisplayHamsterModel(hamsters.Where(h => h.ID == battles.Last().Loser_ID).Single());
     }
 }

@@ -1,4 +1,6 @@
-﻿@inject IHamsterData _db
+﻿@using Application.ProjectAggregate.Events
+
+@inject IHamsterData _db
 @inject NavigationManager _nav
 
 <h4>Add New Hamster</h4>
@@ -28,7 +30,7 @@
     {
         await _db.InsertHamster(ModelConverter.ToHamsterModel(newHamster));
 
-        hamsters.Add(ModelConverter.ToHamsterModel(newHamster));
+        AddHamsterToHamsterList.AddHamster(ModelConverter.ToHamsterModel(newHamster), hamsters);
 
         newHamster = new DisplayHamsterModel();
 

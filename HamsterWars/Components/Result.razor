@@ -34,4 +34,7 @@ else
         displayWinnerHamster = ModelConverter.ToDisplayHamsterModel(hamsters.Where(h => h.ID == battles.Last().Winner_ID).Single());
         displayLoserHamster = ModelConverter.ToDisplayHamsterModel(hamsters.Where(h => h.ID == battles.Last().Loser_ID).Single());
     }
+    /// <summary>
+    /// Shows two hamsters from the last battle.
+    /// </summary>
 }
